@@ -45,6 +45,7 @@ ALPACA_PAPER_API_KEY=your_paper_key
 ALPACA_PAPER_API_SECRET=your_paper_secret
 PAPER_TRADING_ENABLED=true
 PAPER_TRADE_NOTIONAL_USD=100
+DAILY_STARTER_BUYS=2
 ```
 
 The app is paper-only and uses the Alpaca paper endpoint by default. It also keeps a local trade log in `data/trade_log.csv` and skips duplicate same-day orders for the same symbol and action.
@@ -59,6 +60,8 @@ TAKE_PROFIT_PCT=15
 
 These limits prevent repeated buying beyond the position cap and allow the system to exit paper positions when unrealized loss or gain breaches the configured thresholds.
 
+If you want the bot to stay more active, `DAILY_STARTER_BUYS` lets it open a small number of low-conviction starter positions in the top-ranked unheld stocks each day, even when there are no strong threshold-based buy signals.
+
 To restrict order submission to regular U.S. market hours only, keep this enabled:
 
 ```env
@@ -68,6 +71,24 @@ TRADE_DURING_MARKET_HOURS_ONLY=true
 The app will still refresh research, reports, and Excel output outside market hours, but it will skip placing paper orders when Alpaca reports the market is closed.
 
 If a buy or sell signal is generated while the market is closed, the app will queue it in `data/pending_orders.csv` and attempt submission automatically on the next run when the market is open.
+
+## Email Alerts
+
+You can enable email notifications for queued orders, submitted orders, duplicate skips, and failures.
+
+Add these to `.env`:
+
+```env
+EMAIL_ALERTS_ENABLED=true
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@example.com
+SMTP_PASSWORD=your_app_password
+ALERT_FROM_EMAIL=your_email@example.com
+ALERT_TO_EMAIL=your_email@example.com
+```
+
+Gmail usually works well if you use an app password instead of your normal account password.
 
 ## Watchlist format
 

@@ -29,10 +29,18 @@ class Settings:
     alpaca_paper_api_secret: str | None
     paper_trading_enabled: bool
     paper_trade_notional_usd: float
+    daily_starter_buys: int
     max_position_notional_usd: float
     stop_loss_pct: float
     take_profit_pct: float
     trade_during_market_hours_only: bool
+    email_alerts_enabled: bool
+    smtp_host: str | None
+    smtp_port: int
+    smtp_username: str | None
+    smtp_password: str | None
+    alert_from_email: str | None
+    alert_to_email: str | None
 
 
 def _get_bool(name: str, default: bool) -> bool:
@@ -59,8 +67,16 @@ def load_settings() -> Settings:
         alpaca_paper_api_secret=os.getenv("ALPACA_PAPER_API_SECRET") or None,
         paper_trading_enabled=_get_bool("PAPER_TRADING_ENABLED", False),
         paper_trade_notional_usd=float(os.getenv("PAPER_TRADE_NOTIONAL_USD", "100")),
+        daily_starter_buys=int(os.getenv("DAILY_STARTER_BUYS", "2")),
         max_position_notional_usd=float(os.getenv("MAX_POSITION_NOTIONAL_USD", "300")),
         stop_loss_pct=float(os.getenv("STOP_LOSS_PCT", "8")),
         take_profit_pct=float(os.getenv("TAKE_PROFIT_PCT", "15")),
         trade_during_market_hours_only=_get_bool("TRADE_DURING_MARKET_HOURS_ONLY", True),
+        email_alerts_enabled=_get_bool("EMAIL_ALERTS_ENABLED", False),
+        smtp_host=os.getenv("SMTP_HOST") or None,
+        smtp_port=int(os.getenv("SMTP_PORT", "587")),
+        smtp_username=os.getenv("SMTP_USERNAME") or None,
+        smtp_password=os.getenv("SMTP_PASSWORD") or None,
+        alert_from_email=os.getenv("ALERT_FROM_EMAIL") or None,
+        alert_to_email=os.getenv("ALERT_TO_EMAIL") or None,
     )

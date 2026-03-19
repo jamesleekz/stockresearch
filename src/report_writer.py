@@ -34,6 +34,7 @@ def _stock_report_markdown(snapshot: StockSnapshot, summary: StockSummary, decis
         "## Paper Trading",
         f"- Signal: {decision.action}",
         f"- Confidence: {decision.confidence}",
+        f"- Score: {decision.score:.2f}",
         f"- Rationale: {decision.rationale}",
         f"- Order status: {decision.order_status}",
         f"- Current position qty: {decision.position_qty if decision.position_qty is not None else 'N/A'}",
