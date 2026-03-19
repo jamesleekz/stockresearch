@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+data/*.json
+data/pending_orders.csv
+data/trade_log.csv
+reports/*.md
+reports/*.xlsx
+logs/
+!.gitkeep
+.venv/
+venv/

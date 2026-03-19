@@ -1,0 +1,14 @@
+[Unit]
+Description=Stock Research Assistant
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/stock-research-assistant
+EnvironmentFile=/home/ubuntu/stock-research-assistant/.env
+ExecStart=/home/ubuntu/stock-research-assistant/.venv/bin/python src/main.py
+StandardOutput=append:/home/ubuntu/stock-research-assistant/logs/stock-research.log
+StandardError=append:/home/ubuntu/stock-research-assistant/logs/stock-research.err.log
+
